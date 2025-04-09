@@ -1,0 +1,168 @@
+if (!(block_id < actblks) || !(block_id >= unblocks))
+	...
+
+if (block_id < actblks || block_id >= unblocks)
+	...
+
+if ((block_id < actblks) || (block_id >= unblocks))
+	...
+
+leap_year = y % 4 == 0 && y % 100 != 0 || y % 400 == 0;
+// Bind storng operators tightly & add parenthesis when mixing operators
+// even if operator presedences doesn't require it
+leap_year = ((y%4 == 0) && (y%100 == 0)) || y%400 == 0;
+
+*x += (*xp=(2*k < (n-m) ? c[k+1] : d[k--]));
+
+// The context that the final value is being assigned
+// to xp is only implicit
+*xp = 2*k < (n-m) ? .
+	  c[k+1] : d[k--];
+*x += *xp;
+
+// The assignment to xp is front and centre
+if (2*k < n-m)
+	*xp = c[k+1];
+else
+	*xp = d[k--];
+*x += *xp;
+
+Exercise 1-4. Improve each of these fragments:
+if ( !(c == 'y' || c == 'Y') )
+	return;
+->
+if (c != 'y' && c != 'Y')
+	return;
+
+length = (length < BUFSIZE) ? length : BUFSIZE;
+->
+length = min(BUFSIZE, length);
+->
+if (BUFSIZE < length)
+	length = BUFSIZE
+
+flag = flag ? 0 : 1;
+->
+flag = !flag;
+
+quote = (*line == '"') ? 1 : 0;
+->
+quote = (*line == '"');
+
+if (val & 1)
+	bit = 1;
+else
+	bit = 0;
+->
+bit = val & 1;
+
+/* 
+ * NOTE
+ * The cleverness of a program's execution is how well
+ * it uses memory and its performance but the cleverness
+ * of a program's style is how clear it is.
+ */
+
+int read(int *ip) {
+	scanf("%d", ip);
+	return *ip;
+}
+...
+insert(&graph[vert], read(&val), read(&ch));
+
+/*
+ * NOTE
+ * Inconsistent code stands out. This requires mental 
+ * energy to parse despite not doing anything interesting.
+ * A consistent style lets mundane code fly under the 
+ * radar while genuine differences get attention.
+ */
+
+if (month == FEB) {
+ 	if (year%4 == 0) {
+		if (day > 29)
+			legal = FALSE;
+	} else {
+		if (day > 28)
+			legal = FALSE;
+	}
+}
+->
+if (month == FEB) {
+	int days = 28;
+	if (year%4 == 0)
+		days++;	
+	if (day > days)
+		legal = FALSE;	
+}
+
+if (istty(stdin))  ;
+else if (istty(stdout))  ;
+	else if (istty(stderr))  ;
+		else return(0);
+->
+if (!istty(stdin) && !istty(stdout) && !istty(stderr)) {
+	return 0;
+}
+
+if (retval != SUCCESS)
+{
+	return (retval);
+}
+/* All went well! */
+return SUCCESS;
+->
+return retval;
+
+for (k = 0; k++ < 5; x += dx)
+	scanf("%lf", &dx);
+->
+for (k = 0; k < 5; k++) {
+	scanf("%lf", &dx);
+	x += dx;
+}
+
+int count = 0;
+while (count < total) {
+	count++;
+	if (this.getName(count) == nametable.userName()) {
+		return (true);
+	}
+}
+->
+for (int i = 0; i < total; i++) {
+	if (this.getName(i) == nametable.userName())
+		return true;
+}
+
+#define ISDIGIT(c) ((c >= '0') && (c <= '9')) ? 1 : 0
+multiple evaluation
+equality binds tighter than ?: operator
+
+/*
+ * NOTE
+ * If a comment is longer than code, the code probably needs
+ * to be fixed by transmitting some of the information in the
+ * comment by changing the code. E.g.: 
+ */
+
+/* If "result" is 0 a match was found so return true (non-zero).
+      Otherwise, "result" is non-zero so return false (zero). */
+#ifdef DEBUG
+printf("*** isword returns !result = %d\n", !result);
+fflush(stdout);
+#endif
+return(!result);
+->
+#ifdef DEBUG
+printf("*** isword returns matchfound = %d\n", matchfound);
+fflush(stdout);
+#endif
+return matchfound;
+
+/*
+ * NOTE
+ * The comment ties result to the idea of a match being found
+ * but this same information can be transmitted by changing the
+ * code so that !result is directly referred to as matchfound.
+ */
